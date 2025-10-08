@@ -1,0 +1,20 @@
+mysql> CREATE DATABASE schl
+    -> ;
+Query OK, 1 row affected (0.09 sec)
+
+mysql> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| schl               |
+| sys                |
+| world              |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> tee C:\ICT-2204,DBMS  LAB\Day-2.txt
