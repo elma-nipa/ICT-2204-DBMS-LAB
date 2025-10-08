@@ -57,3 +57,131 @@ mysql> SHOW TABLES;
 +------------------------+
 1 row in set (0.01 sec)
 
+mysql> DESC STUDENT;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| STUDENT_ID   | int          | YES  |     | NULL    |       |
+| STUDENT_NAME | varchar(30)  | YES  |     | NULL    |       |
+| SESSION      | varchar(10)  | YES  |     | NULL    |       |
+| CGPA         | float(5,2)   | YES  |     | NULL    |       |
+| GENDER       | varchar(7)   | YES  |     | NULL    |       |
+| MOBILEPHONE  | varchar(15)  | YES  |     | NULL    |       |
+| EMAIL        | varchar(100) | YES  |     | NULL    |       |
+| DOB          | date         | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+8 rows in set (0.01 sec)
+
+mysql> CREATE TABLE PRACT(
+    -> STU_ID INT NOT NULL,
+    -> STU_NAME VARCHAR(50));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT INTO PRACT(STU_ID,STU_NAME) VALUES(1,'NIPA');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT *FROM PRACT;
++--------+----------+
+| STU_ID | STU_NAME |
++--------+----------+
+|      1 | NIPA     |
++--------+----------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO PRACT(STU_ID, STU_NAME) VALUES( , NUS);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ', NUS)' at line 1
+mysql> DROP TABLE PRACT;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE PRACT(STU_ID INT UNIQUE, STU_NAME VARCHAR(20));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT INTO PRACT(STU_ID,STU_NAME) VALUES(1,'iit');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO PRACT(STU_ID,STU_NAME) VALUES(1,'EEE');
+ERROR 1062 (23000): Duplicate entry '1' for key 'pract.STU_ID'
+mysql> DROP TABLE PRACT;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE PRACT(STU_ID INT, STU_NAME VARCHAR(20) UNIQUE(STU_ID));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(STU_ID))' at line 1
+mysql> CREATE TABLE PRACT(STU_ID INT, STU_NAME VARCHAR(20),UNIQUE(STU_ID));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO PRACT(STU_ID,STU_NAME) VALUES(1,'EEE');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DROP TABLE PRACT;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE PRACT(STU_ID INT, STU_NAME VARCHAR(20),CONSTRAINT uc_cust_id UNIQUE(STU_ID));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO PRACT(STU_ID,STU_NAME) VALUES(1,'EEE');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO PRACT(STU_ID,STU_NAME) VALUES(1,'EEE');
+ERROR 1062 (23000): Duplicate entry '1' for key 'pract.uc_cust_id'
+mysql> CREATE TABLE TEACHER(TEACHER_ID INT, TEACHER_NAME VARCHAR(30), UNIQUE(TEACHER_ID));
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> INSERT INTO TEACHER(TEACHER_ID,TEACHER_NAME) VALUES(1,'AMAN');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO TEACHER(TEACHER_ID,TEACHER_NAME) VALUES(1,'AMAN');
+ERROR 1062 (23000): Duplicate entry '1' for key 'teacher.TEACHER_ID'
+mysql> DROP TABLE TEACHER;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE TEACHER(TEACHER_ID INT,TEACHER_NAME(30),CONSTRAINT uc_TEACHER_ID UNIQUE(TEACHER_ID));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(30),CONSTRAINT uc_TEACHER_ID UNIQUE(TEACHER_ID))' at line 1
+mysql> CREATE TABLE TEACHER(TEACHER_ID INT,TEACHER_NAME VARCHAR(30),CONSTRAINT uc_TEACHER_ID UNIQUE(TEACHER_ID));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO TEACHER(TEACHER_ID,TEACHER_NAME) VALUES(1,'AMAN');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO TEACHER(TEACHER_ID,TEACHER_NAME) VALUES(1,'AMAN');
+ERROR 1062 (23000): Duplicate entry '1' for key 'teacher.uc_TEACHER_ID'
+mysql> DROP TABLE TEACHER;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE TEACHER(TEACHER_ID INT PRIMARY KEY,TEACHER_NAME VARCHAR(30));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO TEACHER(TEACHER_ID,TEACHER_NAME) VALUES(1,'AMAN');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO TEACHER(TEACHER_ID,TEACHER_NAME) VALUES(1,'AMAN');
+ERROR 1062 (23000): Duplicate entry '1' for key 'teacher.PRIMARY'
+mysql> DROP TABLE TEACHER;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE TEACHER(TEACHER_ID INT,TEACHER_NAME(30),CONSTRAINT uc_TEACHER_ID PRIMARY KEY(TEACHER_ID));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(30),CONSTRAINT uc_TEACHER_ID PRIMARY KEY(TEACHER_ID))' at line 1
+mysql> CREATE TABLE TEACHER(TEACHER_ID INT,TEACHER_NAME VARCHAR(30),CONSTRAINT uc_TEACHER_ID PRIMARY KEY(TEACHER_ID))
+    -> 
+    -> CREATE TABLE TEACHER(TEACHER_ID INT, TEACHER_NAME VARCHAR(30), PRIMARY KEY(TEACHER_ID));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CREATE TABLE TEACHER(TEACHER_ID INT, TEACHER_NAME VARCHAR(30), PRIMARY KEY(TEACH' at line 3
+mysql> CREATE TABLE TEACHER(TEACHER_ID INT, TEACHER_NAME VARCHAR(30), PRIMARY KEY(TEACHER_ID));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO TEACHER(TEACHER_ID,TEACHER_NAME) VALUES(1,'AMAN');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO TEACHER(TEACHER_ID,TEACHER_NAME) VALUES(1,'AMAN');
+ERROR 1062 (23000): Duplicate entry '1' for key 'teacher.PRIMARY'
+mysql> CREATE TABLE TEACHER(TEACHER_ID INT,TEACHER_NAME VARCHAR(30),CONSTRAINT uc_TEACHER_ID PRIMARY KEY(TEACHER_ID));
+ERROR 1050 (42S01): Table 'teacher' already exists
+mysql> DROP TABLE TEACHER;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> CREATE TABLE TEACHER(TEACHER_ID INT,TEACHER_NAME VARCHAR(30),CONSTRAINT uc_TEACHER_ID PRIMARY KEY(TEACHER_ID));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO TEACHER(TEACHER_ID,TEACHER_NAME) VALUES(1,'AMAN');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO TEACHER(TEACHER_ID,TEACHER_NAME) VALUES(1,'AMAN');
+ERROR 1062 (23000): Duplicate entry '1' for key 'teacher.PRIMARY'
