@@ -1,0 +1,491 @@
+mysql> tee C:\ICT-2204,DBMS  LAB\"|Day-5.txt";
+ERROR: 
+Unknown command '\I'.
+ERROR: 
+Unknown command '\"'.
+    "> Terminal close -- exit!
+mysql> USE DATAABASE NIPA;
+ERROR 1049 (42000): Unknown database 'dataabase'
+mysql> USE DATABASE NIPA;
+ERROR 1049 (42000): Unknown database 'database'
+mysql> USE NIPA;\
+Database changed
+mysql> SHOW TABLES;
++----------------+
+| Tables_in_nipa |
++----------------+
+| btb_hall       |
+| info           |
+| lab3           |
+| person         |
+| route          |
+| stud           |
+| user           |
+| user_2         |
+| usertype       |
++----------------+
+9 rows in set (0.00 sec)
+
+mysql> DESC INFO;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| STUDENT_NAME | varchar(30) | YES  |     | NULL    |       |
+| DEPT         | varchar(10) | YES  |     | NULL    |       |
+| ROUTE_NO     | int         | YES  | MUL | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> ALTER TABLE INFO ADD STUDENTCODE VARCHAR(20);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC INFO;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| STUDENT_NAME | varchar(30) | YES  |     | NULL    |       |
+| DEPT         | varchar(10) | YES  |     | NULL    |       |
+| ROUTE_NO     | int         | YES  | MUL | NULL    |       |
+| STUDENTCODE  | varchar(20) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT *FROM INFO;
++--------------+------+----------+-------------+
+| STUDENT_NAME | DEPT | ROUTE_NO | STUDENTCODE |
++--------------+------+----------+-------------+
+| NIPA         | IIT  |        2 | NULL        |
+| AMAN         | CSE  |        3 | NULL        |
++--------------+------+----------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> UPDATE INFO SET STUDENTCODE='IIT14' WHERE STUDENT_NAME='NIPA';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT *FROM INFO;
++--------------+------+----------+-------------+
+| STUDENT_NAME | DEPT | ROUTE_NO | STUDENTCODE |
++--------------+------+----------+-------------+
+| NIPA         | IIT  |        2 | IIT14       |
+| AMAN         | CSE  |        3 | NULL        |
++--------------+------+----------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> UPDATE INFO SET STUDENTCODE='IIT13' WHERE STUDENT_NAME='AMAN';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT *FROM INFO;
++--------------+------+----------+-------------+
+| STUDENT_NAME | DEPT | ROUTE_NO | STUDENTCODE |
++--------------+------+----------+-------------+
+| NIPA         | IIT  |        2 | IIT14       |
+| AMAN         | CSE  |        3 | IIT13       |
++--------------+------+----------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE INFO DROP COLUMN STUDENTCODE;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT *FROM INFO;
++--------------+------+----------+
+| STUDENT_NAME | DEPT | ROUTE_NO |
++--------------+------+----------+
+| NIPA         | IIT  |        2 |
+| AMAN         | CSE  |        3 |
++--------------+------+----------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE INFO ADD CONSTRAINT pk_studentid PRIMARY KEY(ROUTE_NO);
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC INFO;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| STUDENT_NAME | varchar(30) | YES  |     | NULL    |       |
+| DEPT         | varchar(10) | YES  |     | NULL    |       |
+| ROUTE_NO     | int         | NO   | PRI | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> USE STUD;
+ERROR 1049 (42000): Unknown database 'stud'
+mysql> USE TABLE STUD;
+ERROR 1049 (42000): Unknown database 'table'
+mysql> CREATE TABLE EMPLOYEE(ID INT, NAME VARCHAR(20));
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> INSERT INFO EMPLOYEE VALUES(1234, 'ANMOL');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'EMPLOYEE VALUES(1234, 'ANMOL')' at line 1
+mysql> INSERT INTO EMPLOYEE VALUES(1234, 'ANMOL');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT *FROM EMPLOYEE;
++------+-------+
+| ID   | NAME  |
++------+-------+
+| 1234 | ANMOL |
++------+-------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES(5678, 'NOWRIN');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT *FROM EMPLOYEE;
++------+--------+
+| ID   | NAME   |
++------+--------+
+| 1234 | ANMOL  |
+| 5678 | NOWRIN |
++------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT *FROM INFO;
++--------------+------+----------+
+| STUDENT_NAME | DEPT | ROUTE_NO |
++--------------+------+----------+
+| NIPA         | IIT  |        2 |
+| AMAN         | CSE  |        3 |
++--------------+------+----------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE EMPLOYEE ADD ROUTE_NO INT;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT *FROM EMPLOYEE;
++------+--------+----------+
+| ID   | NAME   | ROUTE_NO |
++------+--------+----------+
+| 1234 | ANMOL  |     NULL |
+| 5678 | NOWRIN |     NULL |
++------+--------+----------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE INFO DROP COLUMN ROUTE_NO;
+ERROR 1828 (HY000): Cannot drop column 'ROUTE_NO': needed in a foreign key constraint 'fk_route_no'
+mysql> ALTER TABLE EMPLOYEE ROUTE_NO INT REFERENCES INFO (ROUTE_NO);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ROUTE_NO INT REFERENCES INFO (ROUTE_NO)' at line 1
+mysql> ALTER TABLE EMPLOYEE REFERENCES INFO (ROUTE_NO);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'REFERENCES INFO (ROUTE_NO)' at line 1
+mysql> ALTER TABLE EMPLOYEE DROP COLUMN ROUTE_NO;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE EMPLOYEE ADD COLUMN ROUTE_NO INT REFERENCES INFO(ROUTE_NO);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC EMPLOYEE;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| ID       | int         | YES  |     | NULL    |       |
+| NAME     | varchar(20) | YES  |     | NULL    |       |
+| ROUTE_NO | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT *FROM EMPLOYEE;
++------+--------+----------+
+| ID   | NAME   | ROUTE_NO |
++------+--------+----------+
+| 1234 | ANMOL  |     NULL |
+| 5678 | NOWRIN |     NULL |
++------+--------+----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT *FROM INFO;
++--------------+------+----------+
+| STUDENT_NAME | DEPT | ROUTE_NO |
++--------------+------+----------+
+| NIPA         | IIT  |        2 |
+| AMAN         | CSE  |        3 |
++--------------+------+----------+
+2 rows in set (0.00 sec)
+
+mysql> DESC INFO;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| STUDENT_NAME | varchar(30) | YES  |     | NULL    |       |
+| DEPT         | varchar(10) | YES  |     | NULL    |       |
+| ROUTE_NO     | int         | NO   | PRI | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> DESC EMPLOYEE;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| ID       | int         | YES  |     | NULL    |       |
+| NAME     | varchar(20) | YES  |     | NULL    |       |
+| ROUTE_NO | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> ALTER TABLE EMPLOYEE ADD CONSTRAINT fk_routeno FOREIGN KEY ROUTE_NO REFERENCES INFO(ROUTE_NO);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'REFERENCES INFO(ROUTE_NO)' at line 1
+mysql> ALTER TABLE EMPLOYEE ADD CONSTRAINT fk_routeno FOREIGN KEY (ROUTE_NO) REFERENCES INFO(ROUTE_NO);
+Query OK, 2 rows affected (0.07 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> DESC EMPLOYEE;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| ID       | int         | YES  |     | NULL    |       |
+| NAME     | varchar(20) | YES  |     | NULL    |       |
+| ROUTE_NO | int         | YES  | MUL | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> UPDATE EMPLOYEE SET ROUTE_NO=104 WHERE STUDENT_NAME='AMAN';
+ERROR 1054 (42S22): Unknown column 'STUDENT_NAME' in 'where clause'
+mysql> UPDATE EMPLOYEE SET ROUTE_NO=104 WHERE NAME='NOWRIN';
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`nipa`.`employee`, CONSTRAINT `fk_routeno` FOREIGN KEY (`ROUTE_NO`) REFERENCES `info` (`ROUTE_NO`))
+mysql> UPDATE EMPLOYEE SET ROUTE_NO=3 WHERE NAME='NOWRIN';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT *FROM EMPLOYEE;
++------+--------+----------+
+| ID   | NAME   | ROUTE_NO |
++------+--------+----------+
+| 1234 | ANMOL  |     NULL |
+| 5678 | NOWRIN |        3 |
++------+--------+----------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE EMPLOYEE ADD COLUMN SALARY INT PRIMARY KEY;
+ERROR 1062 (23000): Duplicate entry '0' for key 'employee.PRIMARY'
+mysql> DESC EMPLOYEE;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| ID       | int         | YES  |     | NULL    |       |
+| NAME     | varchar(20) | YES  |     | NULL    |       |
+| ROUTE_NO | int         | YES  | MUL | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> ALTER TABLE ADD COLUMN TESTID INT PRIMARY KEY;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ADD COLUMN TESTID INT PRIMARY KEY' at line 1
+mysql> ALTER TABLE EMPLOYEE ADD COLUMN TESTID INT PRIMARY KEY;
+ERROR 1062 (23000): Duplicate entry '0' for key 'employee.PRIMARY'
+mysql> SELECT *FROM EMPLOYEE;
++------+--------+----------+
+| ID   | NAME   | ROUTE_NO |
++------+--------+----------+
+| 1234 | ANMOL  |     NULL |
+| 5678 | NOWRIN |        3 |
++------+--------+----------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE EMPLOYEE ADD COLUMN TESTID INT, ADD CONSTRAINT pk_TESTID PRIMARY KEY(TESTID);
+ERROR 1062 (23000): Duplicate entry '0' for key 'employee.PRIMARY'
+mysql> ALTER TABLE EMPLOYEE DROP COLUMN ROUTE_NO;
+ERROR 1828 (HY000): Cannot drop column 'ROUTE_NO': needed in a foreign key constraint 'fk_routeno'
+mysql> SHOW TABLE ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> SHOW TABLES;
++----------------+
+| Tables_in_nipa |
++----------------+
+| btb_hall       |
+| employee       |
+| info           |
+| lab3           |
+| person         |
+| route          |
+| stud           |
+| user           |
+| user_2         |
+| usertype       |
++----------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT *FROM EMPLOYEE;
++------+--------+----------+
+| ID   | NAME   | ROUTE_NO |
++------+--------+----------+
+| 1234 | ANMOL  |     NULL |
+| 5678 | NOWRIN |        3 |
++------+--------+----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT *FROM INFO;
++--------------+------+----------+
+| STUDENT_NAME | DEPT | ROUTE_NO |
++--------------+------+----------+
+| NIPA         | IIT  |        2 |
+| AMAN         | CSE  |        3 |
++--------------+------+----------+
+2 rows in set (0.00 sec)
+
+mysql> DESC INFO;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| STUDENT_NAME | varchar(30) | YES  |     | NULL    |       |
+| DEPT         | varchar(10) | YES  |     | NULL    |       |
+| ROUTE_NO     | int         | NO   | PRI | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> DESC EMPLOYEE;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| ID       | int         | YES  |     | NULL    |       |
+| NAME     | varchar(20) | YES  |     | NULL    |       |
+| ROUTE_NO | int         | YES  | MUL | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> CREATE TABLE TEST(ID INT, NAME VARCHAR(20));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT INTO TEST VALUES(2003, 'NOWRIN');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> ALTER TABLE TEST ADD COLUMN TESTID INT PRIMARY KEY;
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC TEST;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| ID     | int         | YES  |     | NULL    |       |
+| NAME   | varchar(20) | YES  |     | NULL    |       |
+| TESTID | int         | NO   | PRI | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> ALTER TABLE TEST ADD COLUMN SALARY INT, ADD CONSTRAINT pk_salary PRIMARY KEY(SALARY);
+ERROR 1068 (42000): Multiple primary key defined
+mysql> SELECT *FROM EMPLOYEE;
++------+--------+----------+
+| ID   | NAME   | ROUTE_NO |
++------+--------+----------+
+| 1234 | ANMOL  |     NULL |
+| 5678 | NOWRIN |        3 |
++------+--------+----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT *FROM TEST;
++------+--------+--------+
+| ID   | NAME   | TESTID |
++------+--------+--------+
+| 2003 | NOWRIN |      0 |
++------+--------+--------+
+1 row in set (0.00 sec)
+
+mysql> DROP TABLE TEST;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE TEST(ID INT, NAME VARCHAR(20));
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> INSERT INTO TEST VALUES(2003, 'NOWRIN');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT *FROM TEST;
++------+--------+
+| ID   | NAME   |
++------+--------+
+| 2003 | NOWRIN |
++------+--------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE TEST ADD CONSTRAINT fk_ID PRIMARY KEY(ID,NAME);
+Query OK, 0 rows affected (0.21 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC TEST;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| ID    | int         | NO   | PRI | NULL    |       |
+| NAME  | varchar(20) | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT *FROM BTB_HALL;
+Empty set (0.00 sec)
+
+mysql> SHOW TABLES;
++----------------+
+| Tables_in_nipa |
++----------------+
+| btb_hall       |
+| employee       |
+| info           |
+| lab3           |
+| person         |
+| route          |
+| stud           |
+| test           |
+| user           |
+| user_2         |
+| usertype       |
++----------------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT *FROM EMPLOYEE;
++------+--------+----------+
+| ID   | NAME   | ROUTE_NO |
++------+--------+----------+
+| 1234 | ANMOL  |     NULL |
+| 5678 | NOWRIN |        3 |
++------+--------+----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT *FROM INFO;
++--------------+------+----------+
+| STUDENT_NAME | DEPT | ROUTE_NO |
++--------------+------+----------+
+| NIPA         | IIT  |        2 |
+| AMAN         | CSE  |        3 |
++--------------+------+----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT ID,NAME ,STUDENT_NAME,DEPT FROM EMPLOYEE,INFO;
++------+--------+--------------+------+
+| ID   | NAME   | STUDENT_NAME | DEPT |
++------+--------+--------------+------+
+| 5678 | NOWRIN | NIPA         | IIT  |
+| 1234 | ANMOL  | NIPA         | IIT  |
+| 5678 | NOWRIN | AMAN         | CSE  |
+| 1234 | ANMOL  | AMAN         | CSE  |
++------+--------+--------------+------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO EMPLOYEE(ID,NAME) SELECT STUDENT_NAME FROM INFO;
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> ALTER TABLE INFO ADD COLUMN INFO_ID INT;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO EMPLOYEE(ID,NAME) SELECT INFO_ID,STUDENT_NAME FROM INFO;
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> SELECT*FROM EMPLOYEE;
++------+--------+----------+
+| ID   | NAME   | ROUTE_NO |
++------+--------+----------+
+| 1234 | ANMOL  |     NULL |
+| 5678 | NOWRIN |        3 |
+| NULL | NIPA   |     NULL |
+| NULL | AMAN   |     NULL |
++------+--------+----------+
+4 rows in set (0.00 sec)
+
+mysql> NOTEE
