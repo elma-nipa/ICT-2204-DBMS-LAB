@@ -1,0 +1,467 @@
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| iit14thbatch       |
+| information_schema |
+| labquiz_01_1963    |
+| mysql              |
+| nipa               |
+| performance_schema |
+| practice           |
+| sakila             |
+| schl               |
+| sys                |
+| world              |
++--------------------+
+11 rows in set (0.01 sec)
+
+mysql> CREATE DATABASE LAB6;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> USE LAB6;
+Database changed
+mysql> USE NIPA;
+Database changed
+mysql> SHOW TABLES;
++----------------+
+| Tables_in_nipa |
++----------------+
+| btb_hall       |
+| employee       |
+| info           |
+| lab3           |
+| person         |
+| route          |
+| stud           |
+| test           |
+| user           |
+| user_2         |
+| usertype       |
++----------------+
+11 rows in set (0.01 sec)
+
+mysql> DESC EMPLOYEE;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| ID       | int         | YES  |     | NULL    |       |
+| NAME     | varchar(20) | YES  |     | NULL    |       |
+| ROUTE_NO | int         | YES  | MUL | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> DESC PERSON;
++-------------+-------------+------+-----+-------------------+-------------------+
+| Field       | Type        | Null | Key | Default           | Extra             |
++-------------+-------------+------+-----+-------------------+-------------------+
+| ID          | int         | YES  |     | NULL              |                   |
+| PERSON_NAME | varchar(30) | YES  |     | NULL              |                   |
+| AGE         | smallint    | YES  |     | NULL              |                   |
+| CITY        | varchar(30) | YES  |     | ITALY             |                   |
+| TEST_DATE   | datetime    | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++-------------+-------------+------+-----+-------------------+-------------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT ID FROM EMPLOYEE UNION SELECT ID FROM PERSON;
++------+
+| ID   |
++------+
+| 1234 |
+| 5678 |
+| NULL |
+|  101 |
+| 2003 |
+| 2000 |
++------+
+6 rows in set (0.03 sec)
+
+mysql> SELECT *FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS WHERE CONSTRAINT_SCHEMA='NIPA';
++--------------------+-------------------+-----------------+---------------------------+--------------------------+------------------------+--------------+-------------+-------------+------------+-----------------------+
+| CONSTRAINT_CATALOG | CONSTRAINT_SCHEMA | CONSTRAINT_NAME | UNIQUE_CONSTRAINT_CATALOG | UNIQUE_CONSTRAINT_SCHEMA | UNIQUE_CONSTRAINT_NAME | MATCH_OPTION | UPDATE_RULE | DELETE_RULE | TABLE_NAME | REFERENCED_TABLE_NAME |
++--------------------+-------------------+-----------------+---------------------------+--------------------------+------------------------+--------------+-------------+-------------+------------+-----------------------+
+| def                | nipa              | fk_routeno      | def                       | nipa                     | PRIMARY                | NONE         | NO ACTION   | NO ACTION   | employee   | info                  |
+| def                | nipa              | fk_route_no     | def                       | nipa                     | PRIMARY                | NONE         | NO ACTION   | NO ACTION   | info       | route                 |
+| def                | nipa              | fk_user_type_id | def                       | nipa                     | PRIMARY                | NONE         | NO ACTION   | NO ACTION   | user_2     | usertype              |
+| def                | nipa              | user_ibfk_1     | def                       | nipa                     | PRIMARY                | NONE         | NO ACTION   | NO ACTION   | user       | usertype              |
++--------------------+-------------------+-----------------+---------------------------+--------------------------+------------------------+--------------+-------------+-------------+------------+-----------------------+
+4 rows in set (0.17 sec)
+
+mysql> SHOW INDEXES IN PERSON;
+Empty set (0.00 sec)
+
+mysql> SHOW INDEXES IN PERSON;
+Empty set (0.00 sec)
+
+mysql> SHOW INDEXES IN EMPLOYEE;
++----------+------------+------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table    | Non_unique | Key_name   | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++----------+------------+------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| employee |          1 | fk_routeno |            1 | ROUTE_NO    | A         |           2 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++----------+------------+------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+1 row in set (0.00 sec)
+
+mysql> SHOW TABLES;
++----------------+
+| Tables_in_nipa |
++----------------+
+| btb_hall       |
+| employee       |
+| info           |
+| lab3           |
+| person         |
+| route          |
+| stud           |
+| test           |
+| user           |
+| user_2         |
+| usertype       |
++----------------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT *FROM EMPLOYEE;
++------+--------+----------+
+| ID   | NAME   | ROUTE_NO |
++------+--------+----------+
+| 1234 | ANMOL  |     NULL |
+| 5678 | NOWRIN |        3 |
+| NULL | NIPA   |     NULL |
+| NULL | AMAN   |     NULL |
++------+--------+----------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT AVG(ID)FROM EMPLOYEE;
++-----------+
+| AVG(ID)   |
++-----------+
+| 3456.0000 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(ID) FROM EMPLOYEE;
++-----------+
+| COUNT(ID) |
++-----------+
+|         2 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SUM(ID) FROM EMPLOYEE;
++---------+
+| SUM(ID) |
++---------+
+|    6912 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MIN(ID) FROM EMPLOYEE;
++---------+
+| MIN(ID) |
++---------+
+|    1234 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MAX(ID) FROM EMPLOYEE;
++---------+
+| MAX(ID) |
++---------+
+|    5678 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> SELECT AVG(ID)FROM EMPLOYEE WHERE ID>=1234;
++-----------+
+| AVG(ID)   |
++-----------+
+| 3456.0000 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT AVG(ID)FROM EMPLOYEE WHERE ID>1234;
++-----------+
+| AVG(ID)   |
++-----------+
+| 5678.0000 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MAX(ID) FROM EMPLOYEE WHERE ID>1234;
++---------+
+| MAX(ID) |
++---------+
+|    5678 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(ID) FROM EMPLOYEE WHERE ID>1234;
++-----------+
+| COUNT(ID) |
++-----------+
+|         1 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> DESC EMPLOYEE;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| ID       | int         | YES  |     | NULL    |       |
+| NAME     | varchar(20) | YES  |     | NULL    |       |
+| ROUTE_NO | int         | YES  | MUL | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> ALTER TABLE EMPLOYEE DROP ROUTE_NO;
+ERROR 1828 (HY000): Cannot drop column 'ROUTE_NO': needed in a foreign key constraint 'fk_routeno'
+mysql> ALTER TABLE EMPLOYEE DROP ROUTE_NO fk_routeno;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'fk_routeno' at line 1
+mysql> DESC PERSON;
++-------------+-------------+------+-----+-------------------+-------------------+
+| Field       | Type        | Null | Key | Default           | Extra             |
++-------------+-------------+------+-----+-------------------+-------------------+
+| ID          | int         | YES  |     | NULL              |                   |
+| PERSON_NAME | varchar(30) | YES  |     | NULL              |                   |
+| AGE         | smallint    | YES  |     | NULL              |                   |
+| CITY        | varchar(30) | YES  |     | ITALY             |                   |
+| TEST_DATE   | datetime    | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++-------------+-------------+------+-----+-------------------+-------------------+
+5 rows in set (0.00 sec)
+
+mysql> SHOW INDEXES IN EMPLOYEE;
++----------+------------+------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table    | Non_unique | Key_name   | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++----------+------------+------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| employee |          1 | fk_routeno |            1 | ROUTE_NO    | A         |           2 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++----------+------------+------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE EMPLOYEE DROP ROUTE_NO fk_routeno;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'fk_routeno' at line 1
+mysql> ALTER TABLE EMPLOYEE DROP FOREIGN KEY fk_routeno;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC EMPLOYEE;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| ID       | int         | YES  |     | NULL    |       |
+| NAME     | varchar(20) | YES  |     | NULL    |       |
+| ROUTE_NO | int         | YES  | MUL | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> ALTER TABLE EMPLOYEE DROP FOREIGN KEY fk_routeno;
+ERROR 1091 (42000): Can't DROP 'fk_routeno'; check that column/key exists
+mysql> SELECT* FROM EMPLOYEE;
++------+--------+----------+
+| ID   | NAME   | ROUTE_NO |
++------+--------+----------+
+| 1234 | ANMOL  |     NULL |
+| 5678 | NOWRIN |        3 |
+| NULL | NIPA   |     NULL |
+| NULL | AMAN   |     NULL |
++------+--------+----------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO EMPLOYEE(ID,NAME,ROUTE_NO) VALUES(1234,'ANMOL',2);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO EMPLOYEE(ID,NAME,ROUTE_NO) VALUES(5678,'NIPA',4);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO EMPLOYEE(ID,NAME,ROUTE_NO) VALUES(7890,'NOWRIN',5);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT* FROM EMPLOYEE;
++------+--------+----------+
+| ID   | NAME   | ROUTE_NO |
++------+--------+----------+
+| 1234 | ANMOL  |     NULL |
+| 5678 | NOWRIN |        3 |
+| NULL | NIPA   |     NULL |
+| NULL | AMAN   |     NULL |
+| 1234 | ANMOL  |        2 |
+| 5678 | NIPA   |        4 |
+| 7890 | NOWRIN |        5 |
++------+--------+----------+
+7 rows in set (0.00 sec)
+
+mysql> UPDATE EMPLOYEE SET ROUTE_NO=11 WHERE ROUTE_NO =NULL;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> SELECT* FROM EMPLOYEE;
++------+--------+----------+
+| ID   | NAME   | ROUTE_NO |
++------+--------+----------+
+| 1234 | ANMOL  |     NULL |
+| 5678 | NOWRIN |        3 |
+| NULL | NIPA   |     NULL |
+| NULL | AMAN   |     NULL |
+| 1234 | ANMOL  |        2 |
+| 5678 | NIPA   |        4 |
+| 7890 | NOWRIN |        5 |
++------+--------+----------+
+7 rows in set (0.00 sec)
+
+mysql> UPDATE EMPLOYEE SET ID=11 WHERE ROUTE_NO =NULL;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> SELECT* FROM EMPLOYEE;
++------+--------+----------+
+| ID   | NAME   | ROUTE_NO |
++------+--------+----------+
+| 1234 | ANMOL  |     NULL |
+| 5678 | NOWRIN |        3 |
+| NULL | NIPA   |     NULL |
+| NULL | AMAN   |     NULL |
+| 1234 | ANMOL  |        2 |
+| 5678 | NIPA   |        4 |
+| 7890 | NOWRIN |        5 |
++------+--------+----------+
+7 rows in set (0.00 sec)
+
+mysql> UPDATE EMPLOYEE SET ROUTE_NO=11 WHERE ROUTE_NO IS NULL;
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> SELECT* FROM EMPLOYEE;
++------+--------+----------+
+| ID   | NAME   | ROUTE_NO |
++------+--------+----------+
+| 1234 | ANMOL  |       11 |
+| 5678 | NOWRIN |        3 |
+| NULL | NIPA   |       11 |
+| NULL | AMAN   |       11 |
+| 1234 | ANMOL  |        2 |
+| 5678 | NIPA   |        4 |
+| 7890 | NOWRIN |        5 |
++------+--------+----------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(DISTINCT ID) FROM EMPLOYEE;
++--------------------+
+| COUNT(DISTINCT ID) |
++--------------------+
+|                  3 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT ID,COUNT(ROUTE_NO) FROM EMPLOYEE GROUP BY ROUTE_NO;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'nipa.EMPLOYEE.ID' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT ID,COUNT(ROUTE_NO) FROM EMPLOYEE GROUP BY ID;
++------+-----------------+
+| ID   | COUNT(ROUTE_NO) |
++------+-----------------+
+| 1234 |               2 |
+| 5678 |               2 |
+| NULL |               2 |
+| 7890 |               1 |
++------+-----------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT ROUTE_NO,COUNT(ID) FROM EMPLOYEE GROUP BY ROUTE_NO;
++----------+-----------+
+| ROUTE_NO | COUNT(ID) |
++----------+-----------+
+|        2 |         1 |
+|        3 |         1 |
+|        4 |         1 |
+|        5 |         1 |
+|       11 |         1 |
++----------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT *FROM EMPLOYEE;
++------+--------+----------+
+| ID   | NAME   | ROUTE_NO |
++------+--------+----------+
+| 1234 | ANMOL  |       11 |
+| 5678 | NOWRIN |        3 |
+| NULL | NIPA   |       11 |
+| NULL | AMAN   |       11 |
+| 1234 | ANMOL  |        2 |
+| 5678 | NIPA   |        4 |
+| 7890 | NOWRIN |        5 |
++------+--------+----------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT NAME,COUNT(ID) FROM EMPLOYEE WHERE ROUTE_NO>=5;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'nipa.EMPLOYEE.NAME'; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT NAME,COUNT(ID) FROM EMPLOYEE WHERE ROUTE_NO>=5;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'nipa.EMPLOYEE.NAME'; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT NAME,COUNT(ID) FROM EMPLOYEE GROUP BY NAME;
++--------+-----------+
+| NAME   | COUNT(ID) |
++--------+-----------+
+| ANMOL  |         2 |
+| NOWRIN |         2 |
+| NIPA   |         1 |
+| AMAN   |         0 |
++--------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT NAME,COUNT(ID) FROM EMPLOYEE GROUP BY NAME WHERE ID>1234;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE ID>1234' at line 1
+mysql> SELECT ROUTE_NO,COUNT(ID) FROM EMPLOYEE GROUP BY ROUTE_NO ASC;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ASC' at line 1
+mysql> SELECT ROUTE_NO,COUNT(ID) FROM EMPLOYEE GROUP BY ROUTE_NO;
++----------+-----------+
+| ROUTE_NO | COUNT(ID) |
++----------+-----------+
+|        2 |         1 |
+|        3 |         1 |
+|        4 |         1 |
+|        5 |         1 |
+|       11 |         1 |
++----------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT ROUTE_NO,COUNT(ID) FROM EMPLOYEE GROUP BY ROUTE_NO ASC;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ASC' at line 1
+mysql> SELECT ROUTE_NO,COUNT(ID) FROM EMPLOYEE GROUP BY ROUTE_NO ORDER BY ROUTE_NO ASC;
++----------+-----------+
+| ROUTE_NO | COUNT(ID) |
++----------+-----------+
+|        2 |         1 |
+|        3 |         1 |
+|        4 |         1 |
+|        5 |         1 |
+|       11 |         1 |
++----------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT ROUTE_NO,COUNT(ID) FROM EMPLOYEE GROUP BY ROUTE_NO ORDER BY ROUTE_NO DESC;
++----------+-----------+
+| ROUTE_NO | COUNT(ID) |
++----------+-----------+
+|       11 |         1 |
+|        5 |         1 |
+|        4 |         1 |
+|        3 |         1 |
+|        2 |         1 |
++----------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT ROUTE_NO,COUNT(ID) FROM EMPLOYEE GROUP BY ROUTE_NO HAVING COUNT(ID)>=5 ORDER BY ROUTE_NO DESC;
+Empty set (0.00 sec)
+
+mysql> SELECT ROUTE_NO,COUNT(ID) FROM EMPLOYEE GROUP BY ROUTE_NO HAVING COUNT(ROUTE_NO)>=5 ORDER BY ROUTE_NO DESC;
+Empty set (0.00 sec)
+
+mysql> SELECT ROUTE_NO,COUNT(ID) FROM EMPLOYEE GROUP BY ROUTE_NO HAVING COUNT(ID)>=0 ORDER BY ROUTE_NO DESC;
++----------+-----------+
+| ROUTE_NO | COUNT(ID) |
++----------+-----------+
+|       11 |         1 |
+|        5 |         1 |
+|        4 |         1 |
+|        3 |         1 |
+|        2 |         1 |
++----------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> NOTEE;
