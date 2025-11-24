@@ -1,0 +1,76 @@
+mysql> CREATE DATABASE PRACTICE;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> USE PRACTICE;
+Database changed
+mysql> CREATE TABLE STUDENT(STUDENT_ID INT, STUDENT_NAME VARCHAR(20));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> CREATE TABLE EMPLOYEE(EMPLOYEE_ID INT, EMPLOYEE_DOB DATETIME DEFAULT CURRENT_TIMESTAMP);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO EMPLOYEE(EMPLOYEE_ID, EMPLOYEE_DOB) VALUES (123);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT INTO EMPLOYEE(EMPLOYEE_ID) VALUES (123);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT *FROM EMPLOYEE;
++-------------+---------------------+
+| EMPLOYEE_ID | EMPLOYEE_DOB        |
++-------------+---------------------+
+|         123 | 2025-11-19 13:36:26 |
++-------------+---------------------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE EMPLOYEE ADD COLUMN EMPLOYEE_CODE INT;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC EMPLOYEE;
++---------------+----------+------+-----+-------------------+-------------------+
+| Field         | Type     | Null | Key | Default           | Extra             |
++---------------+----------+------+-----+-------------------+-------------------+
+| EMPLOYEE_ID   | int      | YES  |     | NULL              |                   |
+| EMPLOYEE_DOB  | datetime | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
+| EMPLOYEE_CODE | int      | YES  |     | NULL              |                   |
++---------------+----------+------+-----+-------------------+-------------------+
+3 rows in set (0.02 sec)
+
+mysql> ALTER TABLE EMPLOYEE DROP COLUMN EMPLOYEE_ID;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC EMPLOYEE;
++---------------+----------+------+-----+-------------------+-------------------+
+| Field         | Type     | Null | Key | Default           | Extra             |
++---------------+----------+------+-----+-------------------+-------------------+
+| EMPLOYEE_DOB  | datetime | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
+| EMPLOYEE_CODE | int      | YES  |     | NULL              |                   |
++---------------+----------+------+-----+-------------------+-------------------+
+2 rows in set (0.00 sec)
+
+mysql> CREATE TABLE STUD(STUD_ID INT, STUD_NAME VARCHAR(20), STUD_DOB DATETIME DEFAULT CURRENT_TIMESTAMP);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO STUD(STUD_ID. STUD_NAME, STUD_DOB) VALUES (1,'NIPU','2025-11-19');
+ERROR 1054 (42S22): Unknown column 'STUD_ID.STUD_NAME' in 'field list'
+mysql> INSERT INTO STUD(STUD_ID,STUD_NAME, STUD_DOB) VALUES (1,'NIPU','2025-11-19');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT*FROM STUD;
++---------+-----------+---------------------+
+| STUD_ID | STUD_NAME | STUD_DOB            |
++---------+-----------+---------------------+
+|       1 | NIPU      | 2025-11-19 00:00:00 |
++---------+-----------+---------------------+
+1 row in set (0.00 sec)
+
+mysql> CREATE TABLE NIPA(ID INT, AGE INT CHECK(AGE>=18));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO NIPA(ID, AGE)VALUES(1,22);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO NIPA(ID, AGE)VALUES(1,17);
+ERROR 3819 (HY000): Check constraint 'nipa_chk_1' is violated.
+mysql> NOTEE;
