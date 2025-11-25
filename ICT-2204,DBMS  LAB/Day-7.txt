@@ -309,4 +309,56 @@ Query OK, 0 rows affected (0.03 sec)
 
 mysql> INSERT INTO EMPLOYEE(SALARY) 
     -> ^C
+//meghlas part
+mysql> mysql> ALTER TABLE TEST ADD  COLUMN SALARY INT;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT*FROM TEST;
++------+------+--------+
+| NAME | ID   | SALARY |
++------+------+--------+
+| MEGH | 2006 |   NULL |
+| SMI  | 2007 |   NULL |
++------+------+--------+
+2 rows in set (0.00 sec)
+
+mysql> UPDATE TEST SET SALARY=5000 WHERE NAME='MEGH';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE TEST SET SALARY=6000 WHERE NAME='SMI';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT*FROM TEST;
++------+------+--------+
+| NAME | ID   | SALARY |
++------+------+--------+
+| MEGH | 2006 |   5000 |
+| SMI  | 2007 |   6000 |
++------+------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT NAME,CONVERT(SALARY,CHAR)SALARY FROM TEST;
++------+--------+
+| NAME | SALARY |
++------+--------+
+| MEGH | 5000   |
+| SMI  | 6000   |
++------+--------+
+2 rows in set (0.00 sec)
+
+mysql> DESC SALARY;
+ERROR 1146 (42S02): Table 'megh.salary' doesn't exist
+mysql> DESC TEST;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| NAME   | varchar(20) | NO   | PRI | NULL    |       |
+| ID     | int         | NO   | PRI | NULL    |       |
+| SALARY | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
 mysql> Terminal close -- exit!
