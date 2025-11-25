@@ -1,0 +1,312 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| iit14thbatch       |
+| information_schema |
+| lab6               |
+| labquiz_01_1963    |
+| mysql              |
+| nipa               |
+| performance_schema |
+| practice           |
+| sakila             |
+| schl               |
+| sys                |
+| world              |
++--------------------+
+12 rows in set (0.04 sec)
+
+mysql> USE NIPA;
+Database changed
+mysql> SHOW TABLES;
++----------------+
+| Tables_in_nipa |
++----------------+
+| btb_hall       |
+| employee       |
+| info           |
+| lab3           |
+| person         |
+| route          |
+| stud           |
+| test           |
+| user           |
+| user_2         |
+| usertype       |
++----------------+
+11 rows in set (0.01 sec)
+
+mysql> USE IIT14THBATCH;
+Database changed
+mysql> SHOW TABLES;
++------------------------+
+| Tables_in_iit14thbatch |
++------------------------+
+| pract                  |
+| student                |
+| teacher                |
++------------------------+
+3 rows in set (0.00 sec)
+
+mysql> DESC STUDENT;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| STUDENT_ID   | int          | YES  |     | NULL    |       |
+| STUDENT_NAME | varchar(30)  | YES  |     | NULL    |       |
+| SESSION      | varchar(10)  | YES  |     | NULL    |       |
+| CGPA         | float(5,2)   | YES  |     | NULL    |       |
+| GENDER       | varchar(7)   | YES  |     | NULL    |       |
+| MOBILEPHONE  | varchar(15)  | YES  |     | NULL    |       |
+| EMAIL        | varchar(100) | YES  |     | NULL    |       |
+| DOB          | date         | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> DESC TEACHER;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| TEACHER_ID   | int         | NO   | PRI | NULL    |       |
+| TEACHER_NAME | varchar(30) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT DATE("2017-06-30);
+    "> SELECT DATE("2017-06-30");
+    "> ^C
+mysql> SELECT DATE("2017-06-15");
++--------------------+
+| DATE("2017-06-15") |
++--------------------+
+| 2017-06-15         |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE("2017-06-15") AS RANDOMDATE;
++------------+
+| RANDOMDATE |
++------------+
+| 2017-06-15 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT("2017-06-15","%Y");
++--------------------------------+
+| DATE_FORMAT("2017-06-15","%Y") |
++--------------------------------+
+| 2017                           |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATEDIFF("2017-06-15","2017-05-15");
++-------------------------------------+
+| DATEDIFF("2017-06-15","2017-05-15") |
++-------------------------------------+
+|                                  31 |
++-------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT("2017-06-15","%M");
++--------------------------------+
+| DATE_FORMAT("2017-06-15","%M") |
++--------------------------------+
+| June                           |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT("2017-06-15","%D");
++--------------------------------+
+| DATE_FORMAT("2017-06-15","%D") |
++--------------------------------+
+| 15th                           |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT("2017-06-15","%m");
++--------------------------------+
+| DATE_FORMAT("2017-06-15","%m") |
++--------------------------------+
+| 06                             |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_ADD("2017-06-15",INTERVAL 10 DAY);
++----------------------------------------+
+| DATE_ADD("2017-06-15",INTERVAL 10 DAY) |
++----------------------------------------+
+| 2017-06-25                             |
++----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_SUB("2017-06-15",INTERVAL 10 DAY);
++----------------------------------------+
+| DATE_SUB("2017-06-15",INTERVAL 10 DAY) |
++----------------------------------------+
+| 2017-06-05                             |
++----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAY("2017-06-05");
++-------------------+
+| DAY("2017-06-05") |
++-------------------+
+|                 5 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAY(CURDATE);
+ERROR 1054 (42S22): Unknown column 'CURDATE' in 'field list'
+mysql> SELECT DAY(CURDATE());
++----------------+
+| DAY(CURDATE()) |
++----------------+
+|             25 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYNAME("2017-06-05");
++-----------------------+
+| DAYNAME("2017-06-05") |
++-----------------------+
+| Monday                |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFMONTH(CURDATE());
++-----------------------+
+| DAYOFMONTH(CURDATE()) |
++-----------------------+
+|                    25 |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFMONTH("2017-06-05");
++--------------------------+
+| DAYOFMONTH("2017-06-05") |
++--------------------------+
+|                        5 |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFYEAR("2017-06-05");
++-------------------------+
+| DAYOFYEAR("2017-06-05") |
++-------------------------+
+|                     156 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFYEAR(CURDATE());
++----------------------+
+| DAYOFYEAR(CURDATE()) |
++----------------------+
+|                  329 |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SYSDATE();
++---------------------+
+| SYSDATE()           |
++---------------------+
+| 2025-11-25 12:36:31 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SYSDATE()+1;
++----------------+
+| SYSDATE()+1    |
++----------------+
+| 20251125123638 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LENGTH("EDUCATION");
++---------------------+
+| LENGTH("EDUCATION") |
++---------------------+
+|                   9 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LENGTH("NIPA");
++----------------+
+| LENGTH("NIPA") |
++----------------+
+|              4 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT INSTR("NIPA","A");
++-------------------+
+| INSTR("NIPA","A") |
++-------------------+
+|                 4 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT INSTR("NIPA","I");
++-------------------+
+| INSTR("NIPA","I") |
++-------------------+
+|                 2 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LCASE("NIPA");
++---------------+
+| LCASE("NIPA") |
++---------------+
+| nipa          |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT UCASE("NIPA");
++---------------+
+| UCASE("NIPA") |
++---------------+
+| NIPA          |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SUBSTR("EDUCATION",2,4);
++-------------------------+
+| SUBSTR("EDUCATION",2,4) |
++-------------------------+
+| DUCA                    |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LPAD("EDUCATION",11,'$');
++--------------------------+
+| LPAD("EDUCATION",11,'$') |
++--------------------------+
+| $$EDUCATION              |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT RPAD("EDUCATION",11,'$');
++--------------------------+
+| RPAD("EDUCATION",11,'$') |
++--------------------------+
+| EDUCATION$$              |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> SHOW TABLES;
++------------------------+
+| Tables_in_iit14thbatch |
++------------------------+
+| pract                  |
+| student                |
+| teacher                |
++------------------------+
+3 rows in set (0.00 sec)
+
+mysql> CREATE TABLE EMPLOYEE(SALARY INT);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT INTO EMPLOYEE(SALARY) 
+    -> ^C
+mysql> Terminal close -- exit!
