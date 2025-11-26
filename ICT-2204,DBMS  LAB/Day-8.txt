@@ -1,0 +1,492 @@
+mysql> USE NIPA;
+Database changed
+mysql> SHOW TABLES;
++----------------+
+| Tables_in_nipa |
++----------------+
+| btb_hall       |
+| employee       |
+| info           |
+| lab3           |
+| person         |
+| route          |
+| stud           |
+| test           |
+| user           |
+| user_2         |
+| usertype       |
++----------------+
+11 rows in set (0.02 sec)
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| iit14thbatch       |
+| information_schema |
+| lab6               |
+| labquiz_01_1963    |
+| mysql              |
+| nipa               |
+| performance_schema |
+| practice           |
+| sakila             |
+| schl               |
+| sys                |
+| world              |
++--------------------+
+12 rows in set (0.01 sec)
+
+mysql> USE IIT14THBATCH;
+Database changed
+mysql> SHOW TABLES;
++------------------------+
+| Tables_in_iit14thbatch |
++------------------------+
+| employee               |
+| pract                  |
+| student                |
+| teacher                |
++------------------------+
+4 rows in set (0.00 sec)
+
+mysql> DESC EMPLOYEE;
++--------+------+------+-----+---------+-------+
+| Field  | Type | Null | Key | Default | Extra |
++--------+------+------+-----+---------+-------+
+| SALARY | int  | YES  |     | NULL    |       |
++--------+------+------+-----+---------+-------+
+1 row in set (0.01 sec)
+
+mysql> DESC STUDENT;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| STUDENT_ID   | int          | YES  |     | NULL    |       |
+| STUDENT_NAME | varchar(30)  | YES  |     | NULL    |       |
+| SESSION      | varchar(10)  | YES  |     | NULL    |       |
+| CGPA         | float(5,2)   | YES  |     | NULL    |       |
+| GENDER       | varchar(7)   | YES  |     | NULL    |       |
+| MOBILEPHONE  | varchar(15)  | YES  |     | NULL    |       |
+| EMAIL        | varchar(100) | YES  |     | NULL    |       |
+| DOB          | date         | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> TRUNCATE TABLE EMPLOYEE;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> DROP TABLE EMPLOYEE;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE EMPLOYEE(ID INT, NAME VARCHAR(20), SALARY INT);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> INSERT INTO (ID, NAME, SALARY) VALUES(1,"NIPA",20000);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(ID, NAME, SALARY) VALUES(1,"NIPA",20000)' at line 1
+mysql> INSERT INTO (ID, NAME, SALARY) VALUES(1,'NIPA',20000);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(ID, NAME, SALARY) VALUES(1,'NIPA',20000)' at line 1
+mysql> INSERT INTO EMPLOYEE (ID, NAME, SALARY) VALUES(1,"NIPA",20000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO EMPLOYEE (ID, NAME, SALARY) VALUES(2,"NOWRIN",30000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO EMPLOYEE (ID, NAME, SALARY) VALUES(3,"SHAON",40000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT CONVERT(SALARY,CHAR) SALARY FROM EMPLOYEE;
++--------+
+| SALARY |
++--------+
+| 20000  |
+| 30000  |
+| 40000  |
++--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT NAME ,CONVERT(SALARY,CHAR) SALARY FROM EMPLOYEE;
++--------+--------+
+| NAME   | SALARY |
++--------+--------+
+| NIPA   | 20000  |
+| NOWRIN | 30000  |
+| SHAON  | 40000  |
++--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT *FROM EMPLOYEE;
++------+--------+--------+
+| ID   | NAME   | SALARY |
++------+--------+--------+
+|    1 | NIPA   |  20000 |
+|    2 | NOWRIN |  30000 |
+|    3 | SHAON  |  40000 |
++------+--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT CONVERT("2025-11-25",DATE);
++----------------------------+
+| CONVERT("2025-11-25",DATE) |
++----------------------------+
+| 2025-11-25                 |
++----------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CONVERT(SALARY,DECIMAL)SALARY FROM EMPLOYEE;
++--------+
+| SALARY |
++--------+
+|  20000 |
+|  30000 |
+|  40000 |
++--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT CONVERT(SALARY,DECIMAL(10,2))SALARY FROM EMPLOYEE;
++----------+
+| SALARY   |
++----------+
+| 20000.00 |
+| 30000.00 |
+| 40000.00 |
++----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT CONVERT(SALARY,DECIMAL(5,2))SALARY FROM EMPLOYEE;
++--------+
+| SALARY |
++--------+
+| 999.99 |
+| 999.99 |
+| 999.99 |
++--------+
+3 rows in set, 3 warnings (0.00 sec)
+
+mysql> SELECT ABS(-15);
++----------+
+| ABS(-15) |
++----------+
+|       15 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MOD(8,5);
++----------+
+| MOD(8,5) |
++----------+
+|        3 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT FLOOR(8.6);
++------------+
+| FLOOR(8.6) |
++------------+
+|          8 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CEIL(8.6);
++-----------+
+| CEIL(8.6) |
++-----------+
+|         9 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT POWER(2,4);
++------------+
+| POWER(2,4) |
++------------+
+|         16 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT ROUND(2.8);
++------------+
+| ROUND(2.8) |
++------------+
+|          3 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SQRT(16);
++----------+
+| SQRT(16) |
++----------+
+|        4 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT *FROM EMPLOYEE;
++------+--------+--------+
+| ID   | NAME   | SALARY |
++------+--------+--------+
+|    1 | NIPA   |  20000 |
+|    2 | NOWRIN |  30000 |
+|    3 | SHAON  |  40000 |
++------+--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT *FROM EMPLOYEE WHERE SALARY> ALL(SELECT SALARY FROM EMPLOYEE WHERE ID>1);
+Empty set (0.00 sec)
+
+mysql> SELECT *FROM EMPLOYEE WHERE SALARY> ALL(SELECT SALARY FROM EMPLOYEE WHERE ID=1);
++------+--------+--------+
+| ID   | NAME   | SALARY |
++------+--------+--------+
+|    2 | NOWRIN |  30000 |
+|    3 | SHAON  |  40000 |
++------+--------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT *FROM EMPLOYEE WHERE SALARY> ANY(SELECT SALARY FROM EMPLOYEE WHERE ID>1);
++------+-------+--------+
+| ID   | NAME  | SALARY |
++------+-------+--------+
+|    3 | SHAON |  40000 |
++------+-------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT *FROM EMPLOYEE WHERE SALARY> ANY(SELECT SALARY FROM EMPLOYEE WHERE ID=1);
++------+--------+--------+
+| ID   | NAME   | SALARY |
++------+--------+--------+
+|    2 | NOWRIN |  30000 |
+|    3 | SHAON  |  40000 |
++------+--------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT *FROM EMPLOYEE WHERE SALARY BETWEEN 20000 AND 40000;
++------+--------+--------+
+| ID   | NAME   | SALARY |
++------+--------+--------+
+|    1 | NIPA   |  20000 |
+|    2 | NOWRIN |  30000 |
+|    3 | SHAON  |  40000 |
++------+--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT *FROM EMPLOYEE WHERE SALARY BETWEEN 30000 AND 40000;
++------+--------+--------+
+| ID   | NAME   | SALARY |
++------+--------+--------+
+|    2 | NOWRIN |  30000 |
+|    3 | SHAON  |  40000 |
++------+--------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT *FROM EMPLOYEE WHERE SALARY IN 20000 AND 40000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '20000 AND 40000' at line 1
+mysql> SELECT *FROM EMPLOYEE WHERE SALARY IN (20000,40000);
++------+-------+--------+
+| ID   | NAME  | SALARY |
++------+-------+--------+
+|    1 | NIPA  |  20000 |
+|    3 | SHAON |  40000 |
++------+-------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT *FROM EMPLOYEE WHERE NAME LIKE '%N';
++------+--------+--------+
+| ID   | NAME   | SALARY |
++------+--------+--------+
+|    2 | NOWRIN |  30000 |
+|    3 | SHAON  |  40000 |
++------+--------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT *FROM EMPLOYEE WHERE NAME LIKE 'N%';
++------+--------+--------+
+| ID   | NAME   | SALARY |
++------+--------+--------+
+|    1 | NIPA   |  20000 |
+|    2 | NOWRIN |  30000 |
++------+--------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT *FROM EMPLOYEE WHERE NAME LIKE '_N%';
+Empty set (0.00 sec)
+
+mysql> SELECT *FROM EMPLOYEE WHERE NAME LIKE '_I%';
++------+------+--------+
+| ID   | NAME | SALARY |
++------+------+--------+
+|    1 | NIPA |  20000 |
++------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT *FROM EMPLOYEE WHERE NAME LIKE '_I_A%';
++------+------+--------+
+| ID   | NAME | SALARY |
++------+------+--------+
+|    1 | NIPA |  20000 |
++------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT *FROM EMPLOYEE WHERE NAME LIKE '_O_R%';
++------+--------+--------+
+| ID   | NAME   | SALARY |
++------+--------+--------+
+|    2 | NOWRIN |  30000 |
++------+--------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT *FROM EMPLOYEE WHERE NAME LIKE '_O_R_N%';
++------+--------+--------+
+| ID   | NAME   | SALARY |
++------+--------+--------+
+|    2 | NOWRIN |  30000 |
++------+--------+--------+
+1 row in set (0.00 sec)
+
+mysql> DESC EMPLOYEE;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| ID     | int         | YES  |     | NULL    |       |
+| NAME   | varchar(20) | YES  |     | NULL    |       |
+| SALARY | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> DESC STUDENT;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| STUDENT_ID   | int          | YES  |     | NULL    |       |
+| STUDENT_NAME | varchar(30)  | YES  |     | NULL    |       |
+| SESSION      | varchar(10)  | YES  |     | NULL    |       |
+| CGPA         | float(5,2)   | YES  |     | NULL    |       |
+| GENDER       | varchar(7)   | YES  |     | NULL    |       |
+| MOBILEPHONE  | varchar(15)  | YES  |     | NULL    |       |
+| EMAIL        | varchar(100) | YES  |     | NULL    |       |
+| DOB          | date         | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT *FROM STUDENT;
+Empty set (0.01 sec)
+
+mysql> SHOW TABLES;
++------------------------+
+| Tables_in_iit14thbatch |
++------------------------+
+| employee               |
+| pract                  |
+| student                |
+| teacher                |
++------------------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT *FROM TEARCHER;
+ERROR 1146 (42S02): Table 'iit14thbatch.tearcher' doesn't exist
+mysql> SELECT *FROM TEACHER;
++------------+--------------+
+| TEACHER_ID | TEACHER_NAME |
++------------+--------------+
+|          1 | AMAN         |
++------------+--------------+
+1 row in set (0.01 sec)
+
+mysql> INSERT INTO TEACHER(TEACHER_ID,TEACHER_NAME) VALUES(2,'KAMAL');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT *FROM TEACHER WHERE TEACHER_ID=(SELECT ID FROM EMPLOYEE WHERE SALARY=30000);
++------------+--------------+
+| TEACHER_ID | TEACHER_NAME |
++------------+--------------+
+|          2 | KAMAL        |
++------------+--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT *FROM EMPLOYEE;
++------+--------+--------+
+| ID   | NAME   | SALARY |
++------+--------+--------+
+|    1 | NIPA   |  20000 |
+|    2 | NOWRIN |  30000 |
+|    3 | SHAON  |  40000 |
++------+--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT *FROM TEACHER;
++------------+--------------+
+| TEACHER_ID | TEACHER_NAME |
++------------+--------------+
+|          1 | AMAN         |
+|          2 | KAMAL        |
++------------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO EMPLOYEE(ID,NAME,SALARY) VALUES(4,'VAIBHAB',40000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT *FROM TEACHER WHERE TEACHER_ID IN (SELECT ID FROM EMPLOYEE WHERE SALARY=30000);
++------------+--------------+
+| TEACHER_ID | TEACHER_NAME |
++------------+--------------+
+|          2 | KAMAL        |
++------------+--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT *FROM TEACHER WHERE TEACHER_ID IN (SELECT ID FROM EMPLOYEE WHERE SALARY=40000);
+Empty set (0.00 sec)
+
+mysql> INSERT INTO TEACHER(TEACHER_ID,TEACHER_NAME) VALUES(4,'KAWCHAR');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT *FROM TEACHER WHERE TEACHER_ID IN (SELECT ID FROM EMPLOYEE WHERE SALARY=40000);
++------------+--------------+
+| TEACHER_ID | TEACHER_NAME |
++------------+--------------+
+|          4 | KAWCHAR      |
++------------+--------------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO TEACHER(TEACHER_ID,TEACHER_NAME) VALUES(3,'CHAAR');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT *FROM TEACHER WHERE TEACHER_ID IN (SELECT ID FROM EMPLOYEE WHERE SALARY=40000);
++------------+--------------+
+| TEACHER_ID | TEACHER_NAME |
++------------+--------------+
+|          3 | CHAAR        |
+|          4 | KAWCHAR      |
++------------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT *FROM EMPLOYEE;
++------+---------+--------+
+| ID   | NAME    | SALARY |
++------+---------+--------+
+|    1 | NIPA    |  20000 |
+|    2 | NOWRIN  |  30000 |
+|    3 | SHAON   |  40000 |
+|    4 | VAIBHAB |  40000 |
++------+---------+--------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT *FROM TEACHER;
++------------+--------------+
+| TEACHER_ID | TEACHER_NAME |
++------------+--------------+
+|          1 | AMAN         |
+|          2 | KAMAL        |
+|          3 | CHAAR        |
+|          4 | KAWCHAR      |
++------------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT *FROM TEACHER WHERE TEACHER_ID SOME (SELECT ID FROM EMPLOYEE WHERE SALARY=40000);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SOME (SELECT ID FROM EMPLOYEE WHERE SALARY=40000)' at line 1
+mysql> SELECT *FROM TEACHER WHERE TEACHER_ID >SOME (SELECT ID FROM EMPLOYEE WHERE SALARY=40000);
++------------+--------------+
+| TEACHER_ID | TEACHER_NAME |
++------------+--------------+
+|          4 | KAWCHAR      |
++------------+--------------+
+1 row in set (0.00 sec)
+
+mysql> NOTEE;
